@@ -11,7 +11,7 @@ RabbitMQ Queue driver for Laravel
 You can install this package via composer using this command:
 
 ```
-composer require vladimir-yuldashev/laravel-queue-rabbitmq
+composer require mostafaabdelbaset/laravel-queue-rabbitmq
 ```
 
 The package will automatically register itself using Laravel auto-discovery.
