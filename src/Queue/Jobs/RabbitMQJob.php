@@ -20,7 +20,7 @@ class RabbitMQJob extends Job implements JobContract
     /**
      * Same as RabbitMQQueue, used for attempt counts.
      */
-    public const ATTEMPT_COUNT_HEADERS_KEY = 'attempts_count';
+    const ATTEMPT_COUNT_HEADERS_KEY = 'attempts_count';
 
     protected $connection;
     protected $consumer;
@@ -52,7 +52,7 @@ class RabbitMQJob extends Job implements JobContract
         try {
             $payload = $this->payload();
 
-            [$class, $method] = JobName::parse($payload['job']);
+            list($class, $method) = JobName::parse($payload['job']);
 
             with($this->instance = $this->resolve($class))->{$method}($this, $payload['data']);
         } catch (Exception $exception) {

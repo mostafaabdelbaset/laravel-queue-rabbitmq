@@ -6,7 +6,7 @@ use Interop\Amqp\AmqpContext;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Queue\Events\WorkerStopping;
-use Enqueue\AmqpTools\RabbitMqDlxDelayStrategy;
+use Enqueue\AmqpTools\RabbitMqDelayPluginDelayStrategy;
 use Illuminate\Queue\Connectors\ConnectorInterface;
 use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue;
 use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Connectors\RabbitMQConnector;
@@ -99,14 +99,13 @@ class RabbitMQConnectorTest extends TestCase
         $this->assertInstanceOf(RabbitMQQueue::class, $queue);
     }
 
-    public function testShouldSetRabbitMqDlxDelayStrategyIfConnectionFactoryImplementsDelayStrategyAwareInterface()
+    public function testShouldSetRabbitMqDelayPluginDelayStrategyIfConnectionFactoryImplementsDelayStrategyAwareInterface()
     {
         $connector = new RabbitMQConnector($this->createMock(Dispatcher::class));
 
         $called = false;
         DelayStrategyAwareAmqpConnectionFactorySpy::$spy = function ($actualStrategy) use (&$called) {
-            $this->assertInstanceOf(RabbitMqDlxDelayStrategy::class, $actualStrategy);
-
+            $this->assertInstanceOf(RabbitMqDelayPluginDelayStrategy::class, $actualStrategy);
             $called = true;
         };
 

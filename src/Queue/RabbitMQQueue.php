@@ -50,7 +50,7 @@ class RabbitMQQueue extends Queue implements QueueContract
     public function size($queueName = null): int
     {
         /** @var AmqpQueue $queue */
-        [$queue] = $this->declareEverything($queueName);
+        list($queue) = $this->declareEverything($queueName);
 
         return $this->context->declareQueue($queue);
     }
@@ -69,7 +69,7 @@ class RabbitMQQueue extends Queue implements QueueContract
              * @var AmqpTopic
              * @var AmqpQueue $queue
              */
-            [$queue, $topic] = $this->declareEverything($queueName);
+            list($queue, $topic) = $this->declareEverything($queueName);
 
             $message = $this->context->createMessage($payload);
             $message->setRoutingKey($queue->getQueueName());
@@ -133,7 +133,7 @@ class RabbitMQQueue extends Queue implements QueueContract
     {
         try {
             /** @var AmqpQueue $queue */
-            [$queue] = $this->declareEverything($queueName);
+            list($queue) = $this->declareEverything($queueName);
 
             $consumer = $this->context->createConsumer($queue);
 

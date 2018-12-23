@@ -8,7 +8,7 @@ use Interop\Amqp\AmqpConnectionFactory;
 use Enqueue\AmqpTools\DelayStrategyAware;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Queue\Events\WorkerStopping;
-use Enqueue\AmqpTools\RabbitMqDlxDelayStrategy;
+use Enqueue\AmqpTools\RabbitMqDelayPluginDelayStrategy;
 use Illuminate\Queue\Connectors\ConnectorInterface;
 use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue;
 use Interop\Amqp\AmqpConnectionFactory as InteropAmqpConnectionFactory;
@@ -61,7 +61,7 @@ class RabbitMQConnector implements ConnectorInterface
         ]);
 
         if ($factory instanceof DelayStrategyAware) {
-            $factory->setDelayStrategy(new RabbitMqDlxDelayStrategy());
+            $factory->setDelayStrategy(new RabbitMqDelayPluginDelayStrategy());
         }
 
         /** @var AmqpContext $context */
